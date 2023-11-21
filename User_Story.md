@@ -11,3 +11,4 @@ Die IT schlägt folgendes vor:
 -Terminalserver für einfachen Zugriff auf Daten(auch von Zuhause aus) Da die Praxis mit Windows arbeitet machen wir ein Windows Terminal.
 -Backupserver ist nicht im selben Netz wie der Terminalserver(Für sichere Backups)
 -Client bleibt so wie er ist(Es wird einfach ein RDP Zugriff eingerichtet)
+-Als Backup Software nehmen wir Veeam 12.0 Für Backups über SSH.
