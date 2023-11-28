@@ -15,4 +15,6 @@ Die IT schlägt folgendes vor:
 
 -Client bleibt so wie er ist(Es wird einfach ein RDP Zugriff eingerichtet)
 
--Als Backup Software nehmen wir Veeam 12.0 Für Backups über SSH.
+-Als Backup Software nehmen wir Veeam 12.0 für Backups über SSH.
+
+-
