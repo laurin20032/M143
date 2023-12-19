@@ -2,17 +2,18 @@
 
 ## Übersicht
 
-Kurze Beschreibung des Projekts und seiner Ziele.
+Das Projekt TS für Dr. Med. Müller zielt darauf ab, eine zuverlässige und effiziente Backup- und Wiederherstellungsstrategie für den Terminal Server von Dr. Med. Müller zu implementieren. Die Sicherung und Wiederherstellung der Daten sind entscheidend, um einen reibungslosen Betrieb sowie den Schutz sensibler Informationen zu gewährleisten.
 
 ## Inhaltsverzeichnis
+
 
 - [Projekt TS für Dr. Med. Müller](#projekt-ts-für-dr-med-müller)
   - [Übersicht](#übersicht)
   - [Inhaltsverzeichnis](#inhaltsverzeichnis)
-- [Planung](#planung)
+  - [Planung](#planung)
   - [Restore-Prozess](#restore-prozess)
 
-# Planung
+## Planung
 
 1. **Vorbereitung:**
    - Überprüfung der Veeam Backup & Replication Installation 
@@ -72,3 +73,5 @@ Kurze Beschreibung des Projekts und seiner Ziele.
 8. **Dokumentation aktualisieren:**
    - Aktualisiere die Dokumentation für zukünftige Referenzen.
 
+9. **Informieren**
+   - Den Kunden über die erfolgreiche wiederherstellungen Ihrer Daten informieren.
