@@ -1,6 +1,6 @@
 # Projekt TS für Dr. Med. Müller
 
-## Übersicht
+## Übersicht 
 
 Das Projekt TS für Dr. Med. Müller zielt darauf ab, eine zuverlässige und effiziente Backup- und Wiederherstellungsstrategie für den Terminal Server von Dr. Med. Müller zu implementieren. Die Sicherung und Wiederherstellung der Daten sind entscheidend, um einen reibungslosen Betrieb sowie den Schutz sensibler Informationen zu gewährleisten.
 
@@ -12,7 +12,8 @@ Das Projekt TS für Dr. Med. Müller zielt darauf ab, eine zuverlässige und eff
   - [Inhaltsverzeichnis](#inhaltsverzeichnis)
   - [Planung](#planung)
   - [Restore-Prozess](#restore-prozess)
-
+  - [Datensicherungskonzept](#datensicherungskonzept)
+  - [Terminalserver umsetzung](#terminalserver-umsetzung)
 ## Planung
 
 1. **Vorbereitung:**
@@ -75,3 +76,27 @@ Das Projekt TS für Dr. Med. Müller zielt darauf ab, eine zuverlässige und eff
 
 9. **Informieren**
    - Den Kunden über die erfolgreiche wiederherstellungen Ihrer Daten informieren.
+
+
+
+## Datensicherungskonzept
+
+Für eine opitmale Sicherheit des Kunden möchten wir ein möglich gutes Datensicherungskozept.
+
+
+
+
+
+
+
+
+
+
+
+## Terminalserver umsetzung
+Als erstet habe ich in AWS die ganzen standart Konifurationen Konfiguriert. Also IP Subnetz und das Windows 2022 Server ISO.
+Dann habe ich angefangen das Raid zu konfigurieren. Wie in der User Story geschrieben werde ich ein Raid 05 Verwendet.
+In AWS habe ich also 4x 20Gb festplatten hinzugefügt und diese nacher in der Dätenträgerverwaltung hinzugefügt und Konfiguriert.
+
+**Wieso Raid 05:**
+Ein RAID 5 ist für einen Terminalserver optimal, weil es Daten sicher auf mehreren Festplatten verteilt. Falls eine Festplatte ausfällt, können die Daten immer noch abgerufen werden. Das erhöht die Zuverlässigkeit des Servers. Gleichzeitig wird der Speicherplatz effizient genutzt, was besonders wichtig ist, wenn viele Nutzer auf den Terminalserver zugreifen und viel Speicher benötigt wird.
