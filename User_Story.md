@@ -18,3 +18,5 @@ Die IT schlägt folgendes vor:
 -Als Backup Software nehmen wir Veeam 12.0 für Backups über SSH.
 
 -checkmk für Monitoring
+
+-Raid 05 für den Terminalserver
