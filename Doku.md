@@ -32,10 +32,15 @@ Da Herr Müller sein neues Netzwerk in der Cloud aufbauen möchte werden wir den
 Folgende anforderungen werden wir dort Konfigurieren:
 
 IP-Adresse: 18.210.9.134(Öffentlich für den SSH Zugriff)
+
 Subnetz: 172.31.120.0/28
+
 Instance-Typ: t2.large (8Gb Ram und 2 vCPUs)
+
 OS: Windows 2022 Server
+
 Port: SSH(22) RDP(3389)
+
 Dass t2.large würde logischerweise für den Kunden mit seinen 4MPAs nicht reichen. Da wir aber nur begrenz Guthaben haben werde ich dies verwenden.
 Wir verwenden Windows 2022, weil es unseren Anforderungen an eine stabile und leistungsfähige Serverplattform entspricht. Klar könnten wir Ubuntu verwenden da aber die ganze Praxis mit Windows arbeitet und einen RDP zugriff auf den Terminalserver braucht werden wir Windows verwenden. Ausserdem muss der Backup Server natürlich per SSH auf den Terminalserver zugreifen können. Für das Konfiguriere ich den Port 22 auf AWS und in den Windows Firewall einstellungen.
 
@@ -64,9 +69,13 @@ Und min 2Gb Speicher Frei für die Installation.
 Auf den Folgenden angaben bauen wir unser Backupserver auf:
 
 IP-Adresse:44.219.232.33
+
 Subnetz:172.31.48.0/20
+
 Instance-Typ: t2.large (8Gb Ram und 2 vCPUs)
+
 OS: Windows 2022 Server
+
 Port: SSH(22) RDP(3389)
 
 Für den Backupserver haben wir eine Fixe öffentliche IP Adresse verwendent. Dies hat den Voteil das wir nicht immer eine neue IP-Adresse verwenden müssen.
