@@ -1,22 +1,19 @@
 #HNO Arzt Dr. Med. Müller
 
-Dr. med. Müller, geboren am 15. März 1975, ist  Hals-Nasen-Ohren-Arzt, der mit großer Hingabe und Fachkenntnis seinen Patienten in der Stadt Zürich dient. Mit über 20 Jahren Erfahrung in der HNO-Heilkunde hat sich Dr. Müller einen Ruf für exzellente Patientenversorgung und medizinische Kompetenz aufgebaut. Nach 10 Jahren Studieren entschied sich Herr Müller eine eigene Praxis aufzubauen. Mitlerweile arbeitet er seit 12 Jahren in seiner eigenen Praxis. Mit seinen 4 MPAs macht er täglich Kunden gesund.
-<br>
+**Verbesserte Datensicherheit und Zugänglichkeit in der Praxis von Dr. med. Müller durch Cloud-Technologie**
 
-Seit der Coronazeit läuft es in der Praxis Rund. Die MPAs werden täglich mit so vielen sachen überrumpelt das diese sogar am Wochenende zuhause Arbeiten müssen. Bis jetzt haben die MPAs immer Lokal auf dem PC oder Laptop zuhause gearbeitet. Problem darin ist, dass sie die ganzen Patientendaten Lokal auf den Computer abgespeichert werden und sie daher keine schlaue Backup lösung haben. Ausserdem haben die MPAs auf die Daten keinen Zugriff wenn sie von Zuhause aus arbeiten. Dies fällt natürlich auch Herr Müller auf. Ihm sind seine Kundendaten das A und O. Schon seit langem wollte er dagegen etwas unternehmen. Nun ist es aber Zeit. Er gewinnt immer mehr Kunden und immer mehr Daten sind ungesichert auf dem Lokalen PC. Deswegen entscheided sich der Arzt eine Lösung bei seinem IT Partner zu finden.<br>
+Dr. med. Müller betreibt eine erfolgreiche HNO-Praxis in Zürich, die sich durch eine exzellente Patientenversorgung auszeichnet. Mit zunehmender Patientenzahl und dem Wunsch, auch in herausfordernden Zeiten wie der Coronapandemie effizient zu arbeiten, stieß das bisherige System der Datenverwaltung und -sicherung an seine Grenzen. Die Mitarbeiterinnen und Mitarbeiter (MPAs) mussten oft auch am Wochenende Daten zu Hause bearbeiten, wobei wichtige Patienteninformationen lokal auf ihren Computern gespeichert wurden. Dies führte zu Problemen bezüglich der Datensicherheit und des Zugriffs auf diese Daten.
 
-Die IT schlägt folgendes vor:
+Um die Effizienz zu steigern, die Sicherheit von Patientendaten zu gewährleisten und den Arbeitsaufwand der MPAs zu reduzieren, entschied sich Dr. Müller für eine moderne Lösung: den Aufbau einer sicheren IT-Infrastruktur in der Cloud mit einem dedizierten Terminalserver und einem Backupserver, jeweils in eigenen Virtual Private Clouds (VPCs) in AWS gehostet.
 
--Backupserver getrent von anderen Server(Sicherheit)
+Terminalserver-Lösung: Der Terminalserver ermöglicht es den MPAs, von überall aus sicher auf die benötigten Anwendungen und Patientendaten zuzugreifen, ohne dass diese lokal auf ihren Geräten gespeichert werden müssen. Durch die Konfiguration in einer separaten VPC und die Verwendung von RAID 5 für die Datenspeicherung wird nicht nur eine hohe Verfügbarkeit und Ausfallsicherheit erreicht, sondern auch die Datensicherheit deutlich erhöht. Die MPAs können nun effizient von zu Hause arbeiten, ohne dass die Sicherheit der Patientendaten kompromittiert wird.
 
--Terminalserver für einfachen Zugriff auf Daten(auch von Zuhause aus) Da die Praxis mit Windows arbeitet machen wir ein Windows Terminal.
+Backupserver-Konzept: Der Backupserver spielt eine zentrale Rolle in der neuen IT-Strategie. Durch regelmäßige automatisierte Backups mit Veeam wird sichergestellt, dass alle Patientendaten jederzeit verfügbar und vor Verlust geschützt sind. Die Einrichtung von verschlüsselten Backups und die Integration von E-Mail-Benachrichtigungen über den Backup-Status erhöhen die Sicherheit und das Monitoring. Dies bietet Dr. Müller die Gewissheit, dass die Daten seiner Praxis sicher aufbewahrt werden und im Falle eines technischen Problems schnell wiederhergestellt werden können.
 
--Backupserver ist nicht im selben Netz wie der Terminalserver(Für sichere Backups)
+Auswirkungen auf den Alltag der Praxis: Diese technologische Umstellung bedeutet für Dr. Müller und seine Mitarbeiterinnen und Mitarbeiter eine deutliche Verbesserung in mehreren Bereichen. Die Effizienz der Arbeitsabläufe wird gesteigert, da der Zugriff auf Patientendaten von überall sicher möglich ist. Die Sorge um den Verlust wichtiger Daten durch technische Probleme oder die Bearbeitung außerhalb der Praxis wird durch das robuste Backup- und Sicherheitskonzept eliminiert. Letztendlich ermöglicht diese Lösung eine bessere Work-Life-Balance für die MPAs, da sie flexibler arbeiten können, ohne die Sicherheit und Verfügbarkeit der Patientendaten zu gefährden.
 
--Client bleibt so wie er ist(Es wird einfach ein RDP Zugriff eingerichtet)
+Insgesamt stellt die Einführung der Cloud-basierten Terminal- und Backupserver eine wesentliche Verbesserung in der IT-Infrastruktur der Praxis dar, die nicht nur die Datensicherheit und den Zugang zu Informationen verbessert, sondern auch die täglichen Abläufe für Dr. Müller und sein Team optimiert.
 
--Als Backup Software nehmen wir Veeam 12.0 für Backups über SSH.
 
--checkmk für Monitoring
 
--Raid 05 für den Terminalserver
+

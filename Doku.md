@@ -15,24 +15,31 @@ Das Projekt TS für Dr. Med. Müller zielt darauf ab, eine zuverlässige und eff
 - [Backupserver-Konzept](#backupserver-konzept)
   - [Einleitung](#einleitung)
   - [Backup-Lösung](#backup-lösung)
-    - [Veeam Vorteile](#veeam-vorteile)
+  - [Veeam Vorteile](#veeam-vorteile)
   - [Systemanforderungen für Veeam](#systemanforderungen-für-veeam)
   - [Backupserver-Konfiguration](#backupserver-konfiguration)
   - [Backup-Strategie](#backup-strategie)
-    - [Backup-Plan](#backup-plan)
-    - [Strategische Überlegungen](#strategische-überlegungen)
+  - [Backup-Plan](#backup-plan)
+  - [Strategische Überlegungen](#strategische-überlegungen)
   - [Restore-Prozess](#restore-prozess)
-    - [Schritte meines Restore-Prozesses](#schritte-meines-restore-prozesses)
-  - [Datensicherungskonzept](#datensicherungskonzept)
-  - [Installation und Konfiguration](#installation-und-konfiguration)
+- [Schritte meines Restore-Prozesses](#schritte-meines-restore-prozesses)
+- [Datensicherungskonzept](#datensicherungskonzept)
+- [Installation und Konfiguration](#installation-und-konfiguration)
 
 ## Planung
+
+
+
+
 
 **Terminalserver Konzept:**  
 Unser Terminalserver wird in einem anderen Netzwerk sein als der Backupserver. Die Entscheidung, den Terminalserver und den Backupserver in verschiedenen Netzwerken zu platzieren, dient der Sicherheit. Falls ein Netzwerk beeinträchtigt wird, bleibt das andere unberührt, was das Risiko von Datenverlust oder Betriebsunterbrechungen reduziert.
 
 ### RAID 5 Konfiguration
-Außerdem werde ich ein RAID 5 einrichten, um Daten sicherer zu speichern. Bei RAID 5 werden Daten über mehrere Festplatten verteilt und durch Paritätsinformationen geschützt. Das ermöglicht eine gewisse Ausfallsicherheit – selbst wenn eine Festplatte ausfällt, bleiben die Daten erhalten. Dies schafft eine zusätzliche Sicherheitsebene für den Terminalserver. Regelmäßige Überprüfungen des RAID-Arrays werden dafür sorgen, dass die Datenintegrität aufrechterhalten bleibt.
+Um meinen Terminalserver für Herrn Müller in der AWS-Cloud einzurichten, plane ich eine RAID 5-Konfiguration auf dem Windows-Server, der speziell für seine Praxis betrieben wird. Dazu füge ich dem Server mehrere Amazon Elastic Block Store (EBS) Festplatten hinzu. Diese Festplatten werde ich dann in Windows so konfigurieren, dass sie zusammen als ein RAID 5-System arbeiten.
+
+Durch die Einrichtung von RAID 5 werden die Daten von Herrn Müllers Praxis auf mehrere Festplatten verteilt, wobei Paritätsinformationen genutzt werden, um die Datenintegrität zu sichern. Falls eine der Festplatten ausfallen sollte, ermöglicht es mir diese Konfiguration, alle Daten ohne Verlust wiederherzustellen. Diese Methode bietet eine wichtige Sicherheitsebene für die sensiblen Patientendaten, die auf dem Terminalserver gespeichert sind.
+
 
 ### AWS Cloud Konfiguration
 Da Herr Müller sein neues Netzwerk in der Cloud aufbauen möchte, werden wir den Terminalserver in der AWS Cloud konfigurieren. AWS ist kostengünstig und relativ leicht zu bedienen.
