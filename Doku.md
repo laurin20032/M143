@@ -15,16 +15,17 @@ Das Projekt TS für Dr. Med. Müller zielt darauf ab, eine zuverlässige und eff
 - [Backupserver-Konzept](#backupserver-konzept)
   - [Einleitung](#einleitung)
   - [Backup-Lösung](#backup-lösung)
-  - [Veeam Vorteile](#veeam-vorteile)
+    - [Veeam Vorteile](#veeam-vorteile)
   - [Systemanforderungen für Veeam](#systemanforderungen-für-veeam)
   - [Backupserver-Konfiguration](#backupserver-konfiguration)
   - [Backup-Strategie](#backup-strategie)
-  - [Backup-Plan](#backup-plan)
-  - [Strategische Überlegungen](#strategische-überlegungen)
+    - [Backup-Plan](#backup-plan)
+    - [Strategische Überlegungen](#strategische-überlegungen)
   - [Restore-Prozess](#restore-prozess)
-- [Schritte meines Restore-Prozesses](#schritte-meines-restore-prozesses)
-- [Datensicherungskonzept](#datensicherungskonzept)
-- [Installation und Konfiguration](#installation-und-konfiguration)
+    - [Schritte meines Restore-Prozesses](#schritte-meines-restore-prozesses)
+  - [Datensicherungskonzept](#datensicherungskonzept)
+  - [Installation und Konfiguration](#installation-und-konfiguration)
+  - [Installation Probleme/Lösung](#installation-problemelösung)
 
 ## Planung
 
@@ -136,3 +137,47 @@ Durch die Befolgung dieses Prozesses stelle ich sicher, dass die Wiederherstellu
 
 ## Installation und Konfiguration
 
+**AWS**
+Die konfiguration in AWS ist relative Simple. Im Berreich VPC können wir unsere 2 Subnetze wie geplant Konfigurieren.
+Das unsere 2 Instancen auch dauerhaft erreichbar sind und nicht ständig die IP-Adresse ändern, konfigurieren wir eine sogenannte Elastic IP in AWS. Diese können wir später den beiden Server zu weisen. Jetzt können wir aber unsere Server aufsetzen. Dazu klicken wir auf Instances Starten.
+Dort bennen wir unsere Server und wählen unten unseren Windows 2022 Server aus.
+Instance-TYP nehmen wir ja wie vorher geschrieben t2.large. Schlüsselpar nehmen wir SSH-1 den ich mal erstellt habe. Bei den Netzwerk einstellungen wählen wir Sicherheitsgruppen erstellen, und konfigurieren das ganze so:
+
+TCP Port 22 (SSH)
+TCP Port 3389 (RDP)
+TCP Port 3389 für RDP (Remote Desktop Protocol)
+TCP Port 443 (HTTPS)
+TCP Port 9401 (Veeam Backup Service)
+
+Für den Speicher müssen wir nicht Konfigurieren. Das tolle an einer Cloud ist nähmlich das man im laufenden betrieb Festplatten hinzufügen kann.
+Anschliessen können wir noch unsere Festplatten den Servern zu weisen.
+Und dann sind wir berreits ready für die Windows Konfigurationen.
+
+**Windows Konfiguration**
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Installation Probleme/Lösung
