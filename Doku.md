@@ -25,11 +25,12 @@ Das Projekt TS für Dr. Med. Müller zielt darauf ab, eine zuverlässige und eff
     - [Schritte meines Restore-Prozesses](#schritte-meines-restore-prozesses)
   - [Datensicherungskonzept](#datensicherungskonzept)
   - [Installation und Konfiguration](#installation-und-konfiguration)
+  - [Veeam:](#veeam)
   - [Installation Probleme/Lösung](#installation-problemelösung)
 
 ## Planung
 
-
+![PLAN](./Netzwerkplan%20143.png)
 
 
 
@@ -97,6 +98,8 @@ Für die **Backup-Benachrichtigungen** haben ich mich entschieden, eine Gmail-Ap
 
 Um die Sicherheit der Backup-Daten zu erhöhen, habe ich entschieden, alle Backups zu verschlüsseln. Diese **Verschlüsselung** realisiere ich in Veeam unter Verwendung eines starken, sicheren Passworts. Dadurch stelle ich sicher, dass die Daten auch im Falle eines unbefugten Zugriffs geschützt sind
 
+Hier die Berrechnung von den beiden Server was das alles bei AWS Kosten würde:
+![PLAN](./Kosten%20144.png)
 ## Restore-Prozess
 Ich habe einen genauen Restore-Prozess in Veeam entwickelt, der folgende Schritte umfasst:
 
@@ -154,6 +157,52 @@ Anschliessen können wir noch unsere Festplatten den Servern zu weisen.
 Und dann sind wir berreits ready für die Windows Konfigurationen.
 
 **Windows Konfiguration**
+
+Die Windows/Backup Konfiguration ist das wichtigste in unserem Projekt. Deswegen werde ich bei dieser Dokumentation jeden schritt genau erklären.
+
+**RAID 5 Einrichtung:**
+Um ein RAID 5-Array in Windows mit drei 52GB Festplatten zu konfigurieren, beginne ich zunächst damit, die Datenträgerverwaltung zu öffnen. Das mache ich, indem ich mit der rechten Maustaste auf das Startmenü klicke und "Datenträgerverwaltung" auswähle. Dort sehe ich alle angeschlossenen Laufwerke. Da RAID 5 eine Mindestanzahl von drei Festplatten benötigt, stelle ich sicher, dass meine drei 52GB Festplatten erkannt werden und als "Nicht zugeordnet" aufgeführt sind.
+
+Als Nächstes initialisiere ich jede der drei Festplatten als dynamische Datenträger. Dazu klicke ich mit der rechten Maustaste auf jede Festplatte und wähle "Datenträger in dynamischen Datenträger konvertieren". Dynamische Datenträger sind für die Erstellung von RAID-Volumes erforderlich.
+
+Nachdem alle Festplatten zu dynamischen Datenträgern konvertiert wurden, erstelle ich das RAID 5-Volume. Ich klicke mit der rechten Maustaste auf einen der dynamischen Datenträger und wähle die Option "Neues RAID-5-Volume erstellen". Ein Assistent führt mich durch den Prozess. Ich füge alle drei Festplatten zum Volume hinzu und folge den Anweisungen, um das Volume zu konfigurieren, einschließlich der Zuweisung eines Laufwerkbuchstabens und der Formatierung des Volumes mit dem Dateisystem NTFS.
+
+
+**Nettime:**
+
+Um die Zeitsynchronisation in Dr. med. Müllers Praxis zu gewährleisten, habe ich NetTime auf dem Terminalserver sowie dem Backupserver installiert. Dies stellt sicher, dass alle Systeme synchron laufen, was für die Konsistenz von Patientendaten und die zeitliche Abstimmung der Backups kritisch ist.
+
+Ich startete mit dem Download der neuesten NetTime-Version von der offiziellen Webseite, die mit unseren Windows-Servern kompatibel ist. Die Installation führte ich auf beiden Servern durch, indem ich die heruntergeladene Datei als Administrator ausführte. Nach dem Akzeptieren der Lizenzvereinbarung und der Auswahl des Installationspfades komplettierte ich die Installation durch einen Neustart der Systeme.
+
+Nach dem Neustart stellte ich auf beiden Servern sicher, dass NetTime läuft und die Zeit mit einem zuverlässigen Zeitserver abgleicht. Diese Schritte gewährleisten, dass sowohl der Terminal- als auch der Backupserver von Dr. Müller stets die exakte Zeit verwenden, was für die Präzision in der Datenverarbeitung und -sicherung unerlässlich ist.
+
+## Veeam:
+Die Installation von Veeam ist relative einfach gestaltet. Ich bin aber trozdem auf ein paar Probleme gestossen. Dazu aber später mehr.
+
+Um Veeam zu Installieren bin ich wieder auf die Offiziele seite gegangen, um dort das Offiziele File Herunterladen zu können. Sobald dies Heruntergeladen wurde konnte ich das ISO File öffnen. Anschliessend konnte ich beim ISO Laufwerk dass Veeam Setup ausführen.
+Dannach haben wir 3 Optionen:
+
+Veeam Backup & Replication Installieren: Diese Option wählte ich, um die vollständige Veeam Backup & Replication-Lösung auf meinem Server zu installieren. Sie umfasst alle notwendigen Komponenten für das Backup und die Wiederherstellung von virtuellen, physischen und Cloud-basierten Workloads.
+
+Veeam ONE Installieren: Veeam ONE bietet erweiterte Überwachungs- und Reporting-Funktionen für Backup-Infrastrukturen. Es handelt sich um eine separate Komponente, die für umfassende Einblicke und Analysen in die Backup-Umgebung sorgt. Obwohl es für die grundlegende Backup- und Wiederherstellungsfunktion nicht zwingend erforderlich ist, kann es wertvolle Informationen zur Leistung und Gesundheit der Backup-Infrastruktur liefern.
+
+Veeam Backup & Replication Konsole Installieren: Die Installation der reinen Management-Konsole wäre eine Option gewesen, wenn ich die zentralisierte Verwaltung der Veeam-Infrastruktur von einem separaten Arbeitsplatz aus planen wollte, ohne die vollständige Veeam Backup & Replication Suite auf diesem System zu installieren. Diese Option ist besonders nützlich, wenn Administratoren von verschiedenen Standorten aus auf die Backup-Umgebung zugreifen müssen.
+Für die Bedürfnisse der Praxis von Dr. med. Müller und um eine direkte und effiziente Verwaltung der Backups sicherzustellen, entschied ich mich für die erste Option: die vollständige Installation von Veeam Backup & Replication. Diese Wahl stellte sicher, dass ich Zugriff auf alle erforderlichen Tools für das Backup-Management direkt auf dem Backupserver hatte, was die Konfiguration und Überwachung der Backup-Jobs erleichtert.
+
+Nachdem ich die Installationsroutine von Veeam Backup & Replication gestartet hatte, stand ich vor der Entscheidung, ein Ziel für die Backup-Daten zu wählen. Für die optimale Nutzung der verfügbaren Ressourcen und zur Gewährleistung der Datensicherheit entschied ich mich, das RAID 5-Laufwerk als Speicherort für die Backups zu verwenden. Dieses Laufwerk bietet dank seiner Konfiguration eine gute Balance zwischen Speicherkapazität und Datensicherheit.
+Bezüglich der Lizenzierung von Veeam Backup & Replication stellte ich fest, dass für die aktuelle Konfiguration der Praxis keine Lizenz erforderlich ist. Veeam bietet eine Community Edition an, die für kleinere Umgebungen oder für eine begrenzte Anzahl von Workloads kostenlos genutzt werden kann. Da in Dr. med. Müllers Praxis weniger als 10 PCs in die Backup-Strategie einbezogen werden müssen, fiel die Entscheidung auf die Nutzung dieser kostenfreien Version.
+
+Nachdem Veeam Backup & Replication erfolgreich Heruntergeladen ist, können wir mit der Konfiguration beginnen.
+
+
+**Server Hinzufügen**
+In Veeam Backup & Replication öffnete ich den Bereich „Backup Infrastructure“ und wählte „Add Backup Repository“. Im Assistenten entschied ich mich für den Speichertyp, der am besten zu meiner Konfiguration passt, basierend auf dem Speichermedium, das ich für die Backups nutzen wollte. Ich gab dem Repository einen eindeutigen Namen, der es mir erlaubt, es leicht zu identifizieren, z.B. „Backup Repository Dr. Müller“. Dann wies ich dem Repository einen Speicherort zu, in diesem Fall das RAID 5-Laufwerk, das ich bereits eingerichtet hatte, um eine hohe Datensicherheit und Ausfallsicherheit für die Backups zu gewährleisten. Nachdem ich den Speicherpfad ausgewählt und die Größe des Repositories festgelegt hatte, überprüfte Veeam die Konfiguration. Mit einem Klick auf „Finish“ schloss ich den Vorgang ab, und das neue Backup Repository war erfolgreich hinzugefügt und bereit für die Sicherung der Daten.
+
+Das sieht nachher wie folgt aus:
+
+![PLAN](./inventory.png)
+
+Wichtig ist dabei das man einen Rescan macht. Dann sieht man nähmlich ob alle Ports offen sind und der Terminalserver erreichbar ist. Nicht das dies nachher Probleme gibt.
 
 
 
