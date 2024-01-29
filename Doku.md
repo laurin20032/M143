@@ -205,9 +205,24 @@ Das sieht nachher wie folgt aus:
 Wichtig ist dabei das man einen Rescan macht. Dann sieht man nähmlich ob alle Ports offen sind und der Terminalserver erreichbar ist. Nicht das dies nachher Probleme gibt.
 
 
+**Backup Job einrichten**
+
+
+im veeam backup & replication habe ich auf "home" geklickt und dann "new agent backup job" ausgewählt. als job-modus habe ich "server" ausgewählt, da die ip-adresse 18.210.9.134 zu dem server von dr. müller gehört. im nächsten schritt habe ich auf "add computer" geklickt und die ip-adresse 18.210.9.134 eingetragen. dabei habe ich die administrator-anmeldeinformationen verwendet, die ich zuvor eingerichtet hatte. als backup-modus habe ich "managed by backup server" gewählt, sodass der backup-server die planung und durchführung der backups steuert. für den speicherort der backups habe ich das raid 5-laufwerk ausgewählt, das als backup-repository konfiguriert ist. unter "guest processing" habe ich die optionen für die verarbeitung auf dem gastbetriebssystem eingestellt. danach habe ich die zeitplanung für die backups festgelegt. ich habe entschieden, dass die backups täglich um 22:00 uhr stattfinden sollen. nachdem alle einstellungen konfiguriert waren, habe ich auf "apply" geklickt und den job gestartet, um sicherzustellen, dass alles korrekt funktioniert. abschließend habe ich die konfiguration und den status der backups überprüft, um sicherzustellen, dass alles wie geplant läuft.
+
+
+![PLAN](./Bild%204.png)
+
+
+![PLAN](./Bild%201.png)
 
 
 
+Um da ganze nun zu testen können wir nun auf Jobs gehen und dort den TS auswählen. Start klicken und das wird das ganze schon getestet.
+
+
+
+![PLAN](./Beweis.png)
 
 
 
