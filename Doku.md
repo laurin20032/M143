@@ -141,43 +141,32 @@ Durch die Befolgung dieses Prozesses stelle ich sicher, dass die Wiederherstellu
 ## Installation und Konfiguration
 
 **AWS**
-Die konfiguration in AWS ist relative Simple. Im Berreich VPC können wir unsere 2 Subnetze wie geplant Konfigurieren.
-Das unsere 2 Instancen auch dauerhaft erreichbar sind und nicht ständig die IP-Adresse ändern, konfigurieren wir eine sogenannte Elastic IP in AWS. Diese können wir später den beiden Server zu weisen. Jetzt können wir aber unsere Server aufsetzen. Dazu klicken wir auf Instances Starten.
-Dort bennen wir unsere Server und wählen unten unseren Windows 2022 Server aus.
-Instance-TYP nehmen wir ja wie vorher geschrieben t2.large. Schlüsselpar nehmen wir SSH-1 den ich mal erstellt habe. Bei den Netzwerk einstellungen wählen wir Sicherheitsgruppen erstellen, und konfigurieren das ganze so:
+Die Konfiguration in AWS ist relativ simpel. Im Bereich VPC konfiguriere ich unsere zwei Subnetze wie geplant. Um sicherzustellen, dass unsere zwei Instanzen dauerhaft erreichbar sind und nicht ständig die IP-Adresse ändern, richte ich sogenannte Elastic IPs in AWS ein. Diese weise ich später den beiden Servern zu. Nun kann ich unsere Server einrichten. Dafür klicke ich auf "Instances starten", benenne unsere Server und wähle den Windows 2022 Server aus. Als Instanztyp wähle ich, wie zuvor beschrieben, t2.large. Beim Schlüsselpaar greife ich auf SSH-1 zurück, das ich bereits erstellt hatte. In den Netzwerkeinstellungen erstelle ich eine neue Sicherheitsgruppe und konfiguriere sie folgendermaßen:
 
 TCP Port 22 (SSH)
 TCP Port 3389 (RDP)
-TCP Port 3389 für RDP (Remote Desktop Protocol)
 TCP Port 443 (HTTPS)
 TCP Port 9401 (Veeam Backup Service)
-
-Für den Speicher müssen wir nicht Konfigurieren. Das tolle an einer Cloud ist nähmlich das man im laufenden betrieb Festplatten hinzufügen kann.
-Anschliessen können wir noch unsere Festplatten den Servern zu weisen.
-Und dann sind wir berreits ready für die Windows Konfigurationen.
+Für den Speicher brauche ich nichts zu konfigurieren, da das Hinzufügen von Festplatten im laufenden Betrieb einer der Vorteile der Cloud ist. Anschließend weise ich unseren Servern die Festplatten zu, und wir sind bereit für die Windows-Konfiguration.
 
 **Windows Konfiguration**
 
-Die Windows/Backup Konfiguration ist das wichtigste in unserem Projekt. Deswegen werde ich bei dieser Dokumentation jeden schritt genau erklären.
-
+Die Konfiguration von Windows und des Backups ist das Herzstück unseres Projekts. Daher erkläre ich hier jeden Schritt genau.
 **RAID 5 Einrichtung:**
-Um ein RAID 5-Array in Windows mit drei 52GB Festplatten zu konfigurieren, beginne ich zunächst damit, die Datenträgerverwaltung zu öffnen. Das mache ich, indem ich mit der rechten Maustaste auf das Startmenü klicke und "Datenträgerverwaltung" auswähle. Dort sehe ich alle angeschlossenen Laufwerke. Da RAID 5 eine Mindestanzahl von drei Festplatten benötigt, stelle ich sicher, dass meine drei 52GB Festplatten erkannt werden und als "Nicht zugeordnet" aufgeführt sind.
 
-Als Nächstes initialisiere ich jede der drei Festplatten als dynamische Datenträger. Dazu klicke ich mit der rechten Maustaste auf jede Festplatte und wähle "Datenträger in dynamischen Datenträger konvertieren". Dynamische Datenträger sind für die Erstellung von RAID-Volumes erforderlich.
+Um ein RAID 5-Array in Windows mit drei 52-GB-Festplatten zu konfigurieren, öffne ich zuerst die Datenträgerverwaltung, indem ich mit der rechten Maustaste auf das Startmenü klicke und "Datenträgerverwaltung" auswähle. Hier sehe ich alle angeschlossenen Laufwerke. Da RAID 5 mindestens drei Festplatten erfordert, stelle ich sicher, dass meine drei 52-GB-Festplatten erkannt werden und als "Nicht zugeordnet" aufgeführt sind.
 
-Nachdem alle Festplatten zu dynamischen Datenträgern konvertiert wurden, erstelle ich das RAID 5-Volume. Ich klicke mit der rechten Maustaste auf einen der dynamischen Datenträger und wähle die Option "Neues RAID-5-Volume erstellen". Ein Assistent führt mich durch den Prozess. Ich füge alle drei Festplatten zum Volume hinzu und folge den Anweisungen, um das Volume zu konfigurieren, einschließlich der Zuweisung eines Laufwerkbuchstabens und der Formatierung des Volumes mit dem Dateisystem NTFS.
-
+Als Nächstes konvertiere ich jede der drei Festplatten in dynamische Datenträger, indem ich mit der rechten Maustaste darauf klicke und "Datenträger in dynamischen Datenträger konvertieren" auswähle. Nachdem alle Festplatten zu dynamischen Datenträgern konvertiert wurden, erstelle ich das RAID 5-Volume, indem ich mit der rechten Maustaste auf einen der dynamischen Datenträger klicke und "Neues RAID-5-Volume erstellen" auswähle. Ich folge den Anweisungen des Assistenten, füge alle drei Festplatten zum Volume hinzu und konfiguriere es, einschließlich der Zuweisung eines Laufwerkbuchstabens und der Formatierung des Volumes mit dem Dateisystem NTFS.
 
 **Nettime:**
 
-Um die Zeitsynchronisation in Dr. med. Müllers Praxis zu gewährleisten, habe ich NetTime auf dem Terminalserver sowie dem Backupserver installiert. Dies stellt sicher, dass alle Systeme synchron laufen, was für die Konsistenz von Patientendaten und die zeitliche Abstimmung der Backups kritisch ist.
+Um die Zeitsynchronisation in Dr. med. Müllers Praxis sicherzustellen, installiere ich NetTime auf dem Terminalserver und dem Backupserver. Dies garantiert, dass alle Systeme synchron laufen, was für die Konsistenz von Patientendaten und das Timing der Backups kritisch ist.
 
-Ich startete mit dem Download der neuesten NetTime-Version von der offiziellen Webseite, die mit unseren Windows-Servern kompatibel ist. Die Installation führte ich auf beiden Servern durch, indem ich die heruntergeladene Datei als Administrator ausführte. Nach dem Akzeptieren der Lizenzvereinbarung und der Auswahl des Installationspfades komplettierte ich die Installation durch einen Neustart der Systeme.
+Ich beginne mit dem Download der neuesten NetTime-Version von der offiziellen Webseite, die kompatibel mit unseren Windows-Servern ist. Die Installation führe ich auf beiden Servern durch, indem ich die heruntergeladene Datei als Administrator ausführe. Nach dem Akzeptieren der Lizenzvereinbarung und der Auswahl des Installationspfades schließe ich die Installation ab und führe einen Neustart der Systeme durch.
 
-Nach dem Neustart stellte ich auf beiden Servern sicher, dass NetTime läuft und die Zeit mit einem zuverlässigen Zeitserver abgleicht. Diese Schritte gewährleisten, dass sowohl der Terminal- als auch der Backupserver von Dr. Müller stets die exakte Zeit verwenden, was für die Präzision in der Datenverarbeitung und -sicherung unerlässlich ist.
-
+Nach dem Neustart überprüfe ich, ob NetTime läuft und die Zeit mit einem verlässlichen Zeitserver synchronisiert. Diese Schritte stellen sicher, dass sowohl der Terminal- als auch der Backupserver von Dr. Müller stets die genaue Zeit verwenden, was für die Präzision in der Datenverarbeitung und Sicherung unerlässlich ist.
 ## Veeam:
-Die Installation von Veeam ist relative einfach gestaltet. Ich bin aber trozdem auf ein paar Probleme gestossen. Dazu aber später mehr.
+Die Installation von Veeam ist grundsätzlich einfach gestaltet, dennoch bin ich auf einige Probleme gestoßen. Mehr dazu später.
 
 Um Veeam zu Installieren bin ich wieder auf die Offiziele seite gegangen, um dort das Offiziele File Herunterladen zu können. Sobald dies Heruntergeladen wurde konnte ich das ISO File öffnen. Anschliessend konnte ich beim ISO Laufwerk dass Veeam Setup ausführen.
 Dannach haben wir 3 Optionen:
@@ -218,7 +207,7 @@ im veeam backup & replication habe ich auf "home" geklickt und dann "new agent b
 
 
 
-Um da ganze nun zu testen können wir nun auf Jobs gehen und dort den TS auswählen. Start klicken und das wird das ganze schon getestet.
+Um da ganze nun zu testen können wir nun auf Jobs gehen und dort den TS auswählen. Start klicken und dann wird das ganze schon getestet.
 
 
 
@@ -244,4 +233,19 @@ Um da ganze nun zu testen können wir nun auf Jobs gehen und dort den TS auswäh
 
 
 
+
+
 ## Installation Probleme/Lösung
+![PLAN](./Unbenannt%20-%20Kopie.PNG)
+
+In meiner Veeam Backup & Replication Installation stieß ich auf ein Problem, das eine Neuausrichtung der Versionskompatibilität zwischen dem Veeam Backup Server und dem Veeam Data Mover Service erforderte. Die Fehlermeldung zeigte an, dass die Version des Backup-Servers (12.0.0.1420) nicht mit der Version des Veeam Data Mover Service (12.0.1.2131) auf dem Host übereinstimmte.
+
+Ein manuelles Update war in dieser Situation nicht möglich. Daher entschied ich mich, Veeam Backup & Replication vollständig neu zu installieren, um sicherzustellen, dass beide Komponenten – der Server und der Data Mover Service – die gleiche Version aufweisen. Dies war ein entscheidender Schritt, um die Integrität und Funktionsfähigkeit des Backup-Systems zu gewährleisten und um weitere Komplikationen oder Inkompatibilitäten zu vermeiden.
+
+Nachdem ich Veeam Backup & Replication deinstalliert hatte, führte ich einen Neustart des Servers durch und installierte die Software erneut, diesmal darauf achtend, dass ich die korrekte und aktuellste Version von der offiziellen Veeam-Website herunterlud. Nach Abschluss der Neuinstallation überprüfte ich die Versionen beider Komponenten, um sicherzustellen, dass sie übereinstimmten und kompatibel waren.
+
+Die erneute Installation löste das Problem erfolgreich, und ich konnte den Backup-Job ohne weitere Fehlermeldungen durchführen. Abschließend führte ich einen Testlauf durch, um die Funktionalität des Backups zu überprüfen und sicherzustellen, dass alle Komponenten korrekt zusammenarbeiteten. Diese Lösung stellte die vollständige Funktionsfähigkeit der Backup-Lösung für Dr. med. Müllers Praxis wieder her und sorgte dafür, dass die Patientendaten sicher und zuverlässig gesichert wurden.
+
+
+
+
