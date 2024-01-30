@@ -21,13 +21,11 @@ Das Projekt TS für Dr. Med. Müller zielt darauf ab, eine zuverlässige und eff
   - [Backup-Strategie](#backup-strategie)
     - [Backup-Plan](#backup-plan)
     - [Strategische Überlegungen](#strategische-überlegungen)
-  - [Restore-Prozess](#restore-prozess)
-    - [Schritte meines Restore-Prozesses](#schritte-meines-restore-prozesses)
   - [Datensicherungskonzept](#datensicherungskonzept)
   - [Installation und Konfiguration](#installation-und-konfiguration)
   - [Veeam:](#veeam)
   - [Installation Probleme/Lösung](#installation-problemelösung)
-
+- [Restore-Prozess](#restore-prozess)
 ## Planung
 
 ![PLAN](./Netzwerkplan%20143.png)
@@ -100,42 +98,9 @@ Um die Sicherheit der Backup-Daten zu erhöhen, habe ich entschieden, alle Backu
 
 Hier die Berrechnung von den beiden Server was das alles bei AWS Kosten würde:
 ![PLAN](./Kosten%20144.png)
-## Restore-Prozess
-Ich habe einen genauen Restore-Prozess in Veeam entwickelt, der folgende Schritte umfasst:
-
-### Schritte meines Restore-Prozesses
-
-1. **Überprüfung des Backup-Status**
-   - Ich öffne die Veeam Backup & Replication Konsole.
-   - Im Abschnitt „Backups“ überprüfe ich den Status der letzten Backups und stelle sicher, dass sie erfolgreich abgeschlossen wurden.
-
-2. **Auswahl des Wiederherstellungspunktes**
-   - Ich wähle das gewünschte Backup aus und klicke auf „Restore“.
-   - Je nach Bedarf wähle ich „Entire VM restore“ für eine vollständige VM-Wiederherstellung oder „Guest files restore“ für spezifische Dateien.
-
-3. **Vorbereitung des Restore-Jobs**
-   - Im Restore-Assistenten wähle ich den spezifischen Wiederherstellungspunkt basierend auf Datum und Uhrzeit.
-   - Ich bestätige die Auswahl der VM oder Dateien, die wiederhergestellt werden sollen.
-
-4. **Durchführung der Wiederherstellung**
-   - Ich wähle das Ziel für die Wiederherstellung, entweder den ursprünglichen Standort oder einen neuen Standort.
-   - Nach der Überprüfung der Einstellungen starte ich den Wiederherstellungsprozess.
-
-5. **Überprüfung nach der Wiederherstellung**
-   - Nach Abschluss überprüfe ich, ob die VM oder Dateien korrekt wiederhergestellt wurden.
-   - Ich teste die Funktionalität, um sicherzustellen, dass alles ordnungsgemäß funktioniert.
-
-6. **Dokumentation und Reporting**
-   - Ich dokumentiere jeden Schritt des Prozesses, einschließlich der Auswahl des Wiederherstellungspunktes.
-   - Mit der „Reports“-Funktion in Veeam generiere ich einen Bericht über den Restore-Job.
 
 
 
-
-Durch die Befolgung dieses Prozesses stelle ich sicher, dass die Wiederherstellung präzise und zuverlässig erfolgt, minimiere das Risiko von Datenverlusten und gewährleiste die Integrität unserer Systeme.
-
-
-## Datensicherungskonzept
 
 
 ## Installation und Konfiguration
@@ -193,6 +158,12 @@ Das sieht nachher wie folgt aus:
 
 Wichtig ist dabei das man einen Rescan macht. Dann sieht man nähmlich ob alle Ports offen sind und der Terminalserver erreichbar ist. Nicht das dies nachher Probleme gibt.
 
+**Verschlüsselung**
+
+In Veeam Backup & Replication habe ich zuerst das Backup-Repository ausgewählt und dann die Einstellungen bearbeitet. Dort fand ich die Option zur Verschlüsselung und aktivierte die Checkbox „Encrypt backups stored in this repository“. Bei der Aufforderung habe ich ein starkes Passwort eingegeben und bestätigt. Wichtig war dabei, das Passwort sicher zu verwahren, da ohne es kein Zugriff auf die verschlüsselten Backups möglich ist. Nachdem ich die Einstellungen gespeichert hatte, habe ich einen Backup-Job durchgeführt, um sicherzustellen, dass die Verschlüsselung angewendet wird. Nach Abschluss des Jobs habe ich überprüft, ob das Backup korrekt als verschlüsselt markiert war. So waren die Backups für die Praxis von Dr. med. Müller sicher verschlüsselt.
+
+![PLAN](./Verschlüsselung.png)
+
 
 **Backup Job einrichten**
 
@@ -214,23 +185,22 @@ Um da ganze nun zu testen können wir nun auf Jobs gehen und dort den TS auswäh
 ![PLAN](./Beweis.png)
 
 
+**Backup Benachrichtigung**
 
+In der Backup-Lösung für Dr. med. Müllers Praxis wurde eine tägliche Berichterstattung über den Status der Backups eingerichtet. Dies geschieht durch die Integration von Veeam Backup & Replication mit dem Google-Konto von Dr. Müller (143testmueller@gmail.com), von dem aus die täglichen Backup-Berichte an die E-Mail-Adresse laurin206@icloud.com gesendet werden. Die Einrichtung erfolgte wie folgt:
 
+In der Veeam Backup & Replication Konsole navigierte ich zum Bereich „Notifications“.
 
+Dort wählte ich die Option, Benachrichtigungen zu konfigurieren, und gab die Gmail-Adresse 143testmueller@gmail.com als Absender an.
 
+Im Feld „Empfänger“ trug ich die E-Mail-Adresse laurin206@icloud.com ein, an die der Backup-Bericht gesendet werden soll.
 
+Dann konfigurierte ich den Zeitplan für die Berichterstattung, sodass am Ende jedes Backup-Jobs automatisch ein Bericht erstellt und an die angegebene iCloud-Adresse gesendet wird.
 
+Nachdem alle Einstellungen konfiguriert waren, speicherte ich die Konfiguration und führte einen Test durch, um sicherzustellen, dass die E-Mail-Benachrichtigungen erfolgreich versendet werden.
 
-
-
-
-
-
-
-
-
-
-
+**Beweis:**
+![PLAN](./mail.png)
 
 
 
@@ -247,5 +217,35 @@ Nachdem ich Veeam Backup & Replication deinstalliert hatte, führte ich einen Ne
 Die erneute Installation löste das Problem erfolgreich, und ich konnte den Backup-Job ohne weitere Fehlermeldungen durchführen. Abschließend führte ich einen Testlauf durch, um die Funktionalität des Backups zu überprüfen und sicherzustellen, dass alle Komponenten korrekt zusammenarbeiteten. Diese Lösung stellte die vollständige Funktionsfähigkeit der Backup-Lösung für Dr. med. Müllers Praxis wieder her und sorgte dafür, dass die Patientendaten sicher und zuverlässig gesichert wurden.
 
 
+
+
+## Restore-Prozess
+Ich habe einen genauen Restore-Prozess in Veeam entwickelt, der folgende Schritte umfasst:
+
+### Schritte meines Restore-Prozesses
+
+1. **Überprüfung des Backup-Status**
+   - Ich öffne die Veeam Backup & Replication Konsole.
+   - Im Abschnitt „Backups“ überprüfe ich den Status der letzten Backups und stelle sicher, dass sie erfolgreich abgeschlossen wurden.
+
+2. **Auswahl des Wiederherstellungspunktes**
+   - Ich wähle das gewünschte Backup aus und klicke auf „Restore“.
+   - Je nach Bedarf wähle ich „Entire VM restore“ für eine vollständige VM-Wiederherstellung oder „Guest files restore“ für spezifische Dateien.
+
+3. **Vorbereitung des Restore-Jobs**
+   - Im Restore-Assistenten wähle ich den spezifischen Wiederherstellungspunkt basierend auf Datum und Uhrzeit.
+   - Ich bestätige die Auswahl der VM oder Dateien, die wiederhergestellt werden sollen.
+
+4. **Durchführung der Wiederherstellung**
+   - Ich wähle das Ziel für die Wiederherstellung, entweder den ursprünglichen Standort oder einen neuen Standort.
+   - Nach der Überprüfung der Einstellungen starte ich den Wiederherstellungsprozess.
+
+5. **Überprüfung nach der Wiederherstellung**
+   - Nach Abschluss überprüfe ich, ob die VM oder Dateien korrekt wiederhergestellt wurden.
+   - Ich teste die Funktionalität, um sicherzustellen, dass alles ordnungsgemäß funktioniert.
+
+6. **Dokumentation und Reporting**
+   - Ich dokumentiere jeden Schritt des Prozesses, einschließlich der Auswahl des Wiederherstellungspunktes.
+   - Mit der „Reports“-Funktion in Veeam generiere ich einen Bericht über den Restore-Job.
 
 
